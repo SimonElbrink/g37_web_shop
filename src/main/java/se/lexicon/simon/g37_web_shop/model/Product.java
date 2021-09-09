@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 @Entity
 public class Product {
@@ -31,19 +32,61 @@ public class Product {
 
     //Convenience Method - Naive
     public void addProductCategory(ProductCategory productCategory){
+        if (productCategory == null) throw new IllegalArgumentException("productCategory can not be null!");
+        if (categories == null) categories = new HashSet<>();
+
         categories.add(productCategory);
         productCategory.getProductWithCategory().add(this);
 
     }
     //Convenience Method - Naive
-    public void removeProductCategory(ProductCategory productCategory){
+    public void removeProductCategory(ProductCategory productCategory) {
+        if (productCategory == null) throw new IllegalArgumentException("productCategory can not be null!");
+        if (categories == null) categories = new HashSet<>();
+
         categories.remove(productCategory);
         productCategory.getProductWithCategory().remove(this);
 
     }
 
+    public String getProductId() {
+        return productId;
+    }
 
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
+    public String getProductName() {
+        return productName;
+    }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public Set<ProductCategory> getCategories() {
+        return categories;
+    }
+
+    // TODO
+    public void setCategories(Set<ProductCategory> categories) {
+        this.categories = categories;
+    }
 }
