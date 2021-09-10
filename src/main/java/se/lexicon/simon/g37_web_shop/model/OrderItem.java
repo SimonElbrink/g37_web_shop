@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 public class OrderItem {
@@ -27,4 +28,66 @@ public class OrderItem {
     @JoinColumn(name = "order_id", table = "order_item") // Owning the relationship
     private Order order;
 
+
+    public String getOrderItemId() {
+        return orderItemId;
+    }
+
+    public void setOrderItemId(String orderItemId) {
+        this.orderItemId = orderItemId;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(BigDecimal itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(getAmount(), orderItem.getAmount()) && Objects.equals(getItemPrice(), orderItem.getItemPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAmount(), getItemPrice());
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "orderItemId='" + orderItemId + '\'' +
+                ", amount=" + amount +
+                ", itemPrice=" + itemPrice +
+                '}';
+    }
 }

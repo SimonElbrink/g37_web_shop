@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 @Entity
 public class Product {
@@ -30,7 +31,7 @@ public class Product {
     )
     private Set<ProductCategory> categories;
 
-    //Convenience Method - Naive
+    //Convenience Method
     public void addProductCategory(ProductCategory productCategory){
         if (productCategory == null) throw new IllegalArgumentException("productCategory can not be null!");
         if (categories == null) categories = new HashSet<>();
@@ -39,7 +40,7 @@ public class Product {
         productCategory.getProductWithCategory().add(this);
 
     }
-    //Convenience Method - Naive
+    //Convenience Method
     public void removeProductCategory(ProductCategory productCategory) {
         if (productCategory == null) throw new IllegalArgumentException("productCategory can not be null!");
         if (categories == null) categories = new HashSet<>();
@@ -47,6 +48,14 @@ public class Product {
         categories.remove(productCategory);
         productCategory.getProductWithCategory().remove(this);
 
+    }
+
+    /**
+     * TODO
+     * @param categories
+     */
+    public void setCategories(Set<ProductCategory> categories) {
+        this.categories = categories;
     }
 
     public String getProductId() {
@@ -85,8 +94,26 @@ public class Product {
         return categories;
     }
 
-    // TODO
-    public void setCategories(Set<ProductCategory> categories) {
-        this.categories = categories;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(getProductName(), product.getProductName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getProductPrice(), product.getProductPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductName(), getDescription(), getProductPrice());
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", productPrice=" + productPrice +
+                '}';
     }
 }
