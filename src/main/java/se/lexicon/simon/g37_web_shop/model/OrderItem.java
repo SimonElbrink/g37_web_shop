@@ -28,6 +28,21 @@ public class OrderItem {
     @JoinColumn(name = "order_id", table = "order_item") // Owning the relationship
     private Order order;
 
+    public OrderItem() {
+    }
+
+    public OrderItem(Integer amount, Product product, Order order) {
+        this.amount = amount;
+        this.product = product;
+        this.order = order;
+        calcPrice();
+    }
+
+    private void calcPrice(){
+
+        itemPrice = product.getProductPrice().multiply(BigDecimal.valueOf(amount));
+
+    }
 
     public String getOrderItemId() {
         return orderItemId;

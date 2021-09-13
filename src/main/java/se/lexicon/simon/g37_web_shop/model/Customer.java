@@ -13,8 +13,10 @@ public class Customer {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false)
     private String customerId;
+
     private String firstName;
     private String lastName;
+
     @Column(unique = true, nullable = false)
     private String email;
 

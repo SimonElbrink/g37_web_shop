@@ -31,6 +31,16 @@ public class Product {
     )
     private Set<ProductCategory> categories;
 
+    public Product() {
+    }
+
+    public Product(String productName, String description, BigDecimal productPrice) {
+        this.productName = productName;
+        this.description = description;
+        this.productPrice = productPrice;
+        categories = new HashSet<>();
+    }
+
     //Convenience Method
     public void addProductCategory(ProductCategory productCategory){
         if (productCategory == null) throw new IllegalArgumentException("productCategory can not be null!");
