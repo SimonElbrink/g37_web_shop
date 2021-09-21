@@ -13,6 +13,14 @@ public interface OrderRepository extends CrudRepository<Order, String> {
     @Query("SELECT o FROM Order o JOIN FETCH o.orderItems AS item WHERE UPPER(item.product.productName) = UPPER(:name)")
     Collection<Order> findOrderByProductName(@Param("name") String name);
 
-//    Collection<Order> findOrderByOrderItems_Product_ProductName(String name);
+    Collection<Order> findOrderByOrderItems_Product_ProductName(String name);
+
+
+
+    @Query("SELECT o FROM Order o JOIN FETCH o.orderItems AS item WHERE item.product.productName IN (:productName)")
+    Collection<Order> findOrdersByProductName(@Param("productName") Collection<String> productNames);
+
+    Collection<Order> findOrderByOrderItemsProductProductNameIn(Collection<String> names); // PIKE - Green, PIKE - Blue, PIKE - Pink
+
 
 }

@@ -17,6 +17,6 @@ public interface OrderItemRepository extends CrudRepository<OrderItem, String> {
 
 //    // Derived Query - You can name a method a specific way and the framework might figure it out.
 //    //Makes use of the field names in class searched in. Product_id is the field name of id in product.
-//    Collection<OrderItem> findOrderItemByProduct_ProductId(@Param("id") String productId);
+    Collection<OrderItem> findOrderItemByProduct_ProductId(@Param("id") String productId);
 
 }
